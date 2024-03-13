@@ -73,9 +73,12 @@ class Arena {
 
    public:
     /** @brief Default constructor.
+      */
+    Arena();
+    /** @brief Sized constructor.
       * @param size The size of the memory arenas allocated.
       */
-    Arena(std::size_t size = 65536);
+    Arena(std::size_t size);
     
     /** @brief Copy constructor; deleted.
       */
