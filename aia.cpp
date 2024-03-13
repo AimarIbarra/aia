@@ -10,8 +10,9 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include "aia.hpp"
+#include <aia.hpp>
 
+namespace aia {
 void Arena::grow() {
     arena_pool.emplace_front(arena_size);
     free_space = arena_size;
@@ -57,3 +58,5 @@ void *Arena::allocate(std::size_t size, std::size_t align) {
 
     return ptr;
 }
+
+} // namespace aia
