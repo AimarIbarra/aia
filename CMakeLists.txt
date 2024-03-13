@@ -5,6 +5,7 @@ project(aia VERSION 1.0
             LANGUAGES CXX)
 
 add_library(${PROJECT_NAME} aia.cpp aia.hpp)
+target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIRECTORY}")
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
