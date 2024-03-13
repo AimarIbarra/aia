@@ -5,3 +5,10 @@ project(aia VERSION 1.0
             LANGUAGES CXX)
 
 add_library(${PROJECT_NAME} aia.cpp aia.hpp)
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+    add_executable(build_test build_test.cpp)
+    target_link_libraries(build_test aia)
+    add_test("Builds" build_test)
+endif()
