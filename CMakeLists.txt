@@ -4,8 +4,7 @@ project(aia VERSION 1.0
             DESCRIPTION "A simple arena allocator implementation" 
             LANGUAGES CXX)
 
-add_library(${PROJECT_NAME} aia.cpp aia.hpp)
-target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_SOURCE_DIR}")
+add_subdirectory(src)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     Include(FetchContent)
