@@ -160,7 +160,7 @@ class ArenaAllocator {
     /** @brief Getter for the arena associated to the allocator.
       * @return The arena associated to the allocator.
       */
-    Arena &get_arena() {
+    Arena &get_arena() const {
         return arena;
     }
 
@@ -168,8 +168,10 @@ class ArenaAllocator {
         return static_cast<T *>(arena.allocate(sizeof(T[n]), alignof(T)));
     }
 
-    void deallocate([[maybe_unused]] pointer ptr,
-                    [[maybe_unused]] size_type size) {}
+    void deallocate(pointer ptr, size_type size) {
+      (void)ptr;
+      (void)size;
+    }
 
     template <typename U>
     constexpr bool operator==(const ArenaAllocator<U> &other) const noexcept {
