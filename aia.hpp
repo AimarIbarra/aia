@@ -13,85 +13,117 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-/**
+/** @file aia.hpp
+  * @brief A simple implementation of an arena allocator.
   * @author Aimar Ibarra <greenerclay@gmail.com>
   */
 
 #include <forward_list>
 #include <memory>
 
+/** @namespace aia
+  */
 namespace aia {
 
+// Forward declaration of the allocator
 template <typename T>
 class ArenaAllocator;
 
+/** @class Arena
+  * @brief The arena that holds the data of the objects.
+  */
 class Arena {
+    /** @struct arena_type
+      * @brief Datatype representing one memory arena.
+      */
     struct arena_type {
         void *data;
         arena_type(std::size_t size) : data(::operator new(size)) {}
         ~arena_type() { ::operator delete(data); }
     };
 
+    /** @typedef arena_pool_type
+      * @brief Chain of different memory arenas.
+      */
     using arena_pool_type = std::forward_list<arena_type>;
 
+    /** @brief The size used to create new memory arenas.
+      */
     std::size_t arena_size;
+
+    /** @brief Chain of memory arenas.
+      */
     arena_pool_type arena_pool;
+
+    /** @brief The avaliable memory for the current arena.
+      */
     std::size_t free_space;
+
+    /** @brief The position where the last allocation succeded.
+      */
     void *current_position;
 
-    void grow() {
-        arena_pool.emplace_front(arena_size);
-        free_space = arena_size;
-        current_position = arena_pool.begin()->data;
-    }
+    /** @brief Creates a new arena.
+      */
+    void grow();
 
-    void *emplace(std::size_t size, std::size_t align) {
-        arena_pool.emplace_after(arena_pool.begin(), size + align);
-        return std::align(align, 1, (++arena_pool.begin())->data, size);
-    }
+    /** @brief Creates a new arena with at least `size` bytes and `align` alignment.
+      */
+    void *emplace(std::size_t size, std::size_t align);
 
    public:
-    Arena(std::size_t size = 65536) : arena_size(size) { grow(); }
+    /** @brief Default constructor.
+      * @param size The size of the memory arenas allocated.
+      */
+    Arena(std::size_t size = 65536);
+    
+    /** @brief Copy constructor; deleted.
+      */
     Arena(const Arena &other) = delete;
+
+    /** @brief Copy assigment operator; deleted.
+      */
     Arena &operator=(const Arena &other) = delete;
-    Arena(Arena &&arena) {
-        arena_size = arena.arena_size;
-        free_space = arena.free_space;
-        current_position = arena.current_position;
-        arena_pool = std::move(arena.arena_pool);
-    }
-    Arena &operator=(Arena &&arena) {
-        arena_size = arena.arena_size;
-        free_space = arena.free_space;
-        current_position = arena.current_position;
-        arena_pool = std::move(arena.arena_pool);
-        return *this;
-    }
+    
+    /** @brief Move constructor.
+      * The resources are moved from one arena to the other.
+      * @param arena The arena from which the resources are taken.
+      */
+    Arena(Arena &&arena) noexcept;
+    
+    /** @brief Move assigment operator.
+      * The resources are moved from one arena to the other.
+      * @param arena The arena from which the resources are taken.
+      */
+    Arena &operator=(Arena &&arena) noexcept;
 
-    void set_arena_size(std::size_t newsiz) { arena_size = newsiz; }
+    /** @brief Setter for the memory arena size.
+      * @param newsiz The new size that will be used to allocate arenas.
+      */
+    void set_arena_size(std::size_t newsiz);
 
-    void *allocate(std::size_t size, std::size_t align) {
-        if (size + align > arena_size) {
-            return emplace(size, align);
-        }
+    /** @brief Arena memory allocation method.
+      * Note that this function won't fail even if more bytes than `arena_size` are requested.
+      * @param size  The bytes requested for allocation.
+      * @param align The alignment requirement of the memory.
+      * @return non-null void pointer to the allocated memory.
+      */
+    void *allocate(std::size_t size, std::size_t align);
 
-        void *ptr = std::align(align, size, current_position, free_space);
-        if (!ptr) {
-            grow();
-            ptr = std::align(align, size, current_position, free_space);
-        }
-        current_position = static_cast<std::byte *>(current_position) + size;
-        free_space -= size;
-
-        return ptr;
-    }
-
+    /** @brief Helper to create a stl compatible allocator.
+      * @tparam T The type the allocator will allocate.
+      * @return Allocator related with the arena.
+      */
     template <typename T>
     ArenaAllocator<T> make_allocator() {
         return ArenaAllocator<T>(*this);
     }
 };
 
+/** @class ArenaAllocator
+  * @brief Allocator for a given arena.
+  * @tparam T The type the allocator allocates.
+  */
 template <typename T>
 class ArenaAllocator {
     Arena &arena;
@@ -144,6 +176,6 @@ class ArenaAllocator {
     }
 };
 
-}  // namespace aalloc
+}  // namespace aia
 
 #endif
