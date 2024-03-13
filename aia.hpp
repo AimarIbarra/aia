@@ -103,7 +103,7 @@ class Arena {
     /** @brief Setter for the memory arena size.
       * @param newsiz The new size that will be used to allocate arenas.
       */
-    void set_arena_size(std::size_t newsiz);
+    void set_arena_size(std::size_t newsiz) noexcept;
 
     /** @brief Arena memory allocation method.
       * Note that this function won't fail even if more bytes than `arena_size` are requested.
