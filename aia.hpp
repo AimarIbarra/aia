@@ -147,15 +147,14 @@ class ArenaAllocator {
 
     template <typename U>
     ArenaAllocator(const ArenaAllocator<U> &other) noexcept
-        : ArenaAllocator(other.template duplicate<T>()) {}
+        : ArenaAllocator(other.get_arena()) {}
 
     template <typename U>
     ArenaAllocator(ArenaAllocator<U> &&other) noexcept
-        : arena(other.template duplicate<T>()) {}
+        : ArenaAllocator(other.get_arena()) {}
 
-    template <typename U>
-    ArenaAllocator<U> duplicate() const {
-        return ArenaAllocator<U>(arena);
+    Arena &get_arena() {
+        return arena;
     }
 
     T *allocate(size_type n) {
