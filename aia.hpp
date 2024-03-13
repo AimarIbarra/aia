@@ -125,6 +125,7 @@ class Arena {
 
 /** @class ArenaAllocator
   * @brief Allocator for a given arena.
+  * Refer to the C++ reference for how this allocator works.
   * @tparam T The type the allocator allocates.
   */
 template <typename T>
@@ -156,6 +157,9 @@ class ArenaAllocator {
     ArenaAllocator(ArenaAllocator<U> &&other) noexcept
         : ArenaAllocator(other.get_arena()) {}
 
+    /** @brief Getter for the arena associated to the allocator.
+      * @return The arena associated to the allocator.
+      */
     Arena &get_arena() {
         return arena;
     }

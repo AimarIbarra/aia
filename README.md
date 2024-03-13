@@ -2,7 +2,11 @@
 This is a simple implementation of a memory arena, alongside it's respective allocator.
 
 ## Install
-Just copy the header file somewhere in your project, since it is a single header library.
+Use CMake:
+```cmake
+add_subdirectory(<PATH_TO_THIS_PROJECT>)
+target_link_libraries(<YOUR_EXECUTABLE> aia)
+```
 
 ## Usage
 ```c++
@@ -24,4 +28,4 @@ std::forward_list<int, decltype(alloc)> list(alloc);
 ```
 
 ## Documentation
-The library will be documentated in the near future.
+The file `aia.hpp` is documented with doxygen.
