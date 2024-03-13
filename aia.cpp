@@ -13,6 +13,7 @@
 #include <aia.hpp>
 
 namespace aia {
+
 void Arena::grow() {
     arena_pool.emplace_front(arena_size);
     free_space = arena_size;
@@ -24,7 +25,9 @@ void *Arena::emplace(std::size_t size, std::size_t align) {
     return std::align(align, 1, (++arena_pool.begin())->data, size);
 }
 
-Arena::Arena(std::size_t size = 65536) : arena_size(size) { grow(); }
+Arena::Arena() : Arena(65536) {}
+
+Arena::Arena(std::size_t size) : arena_size(size) { grow(); }
 
 Arena::Arena(Arena &&arena) noexcept {
     arena_size = arena.arena_size;
