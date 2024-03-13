@@ -1,5 +1,5 @@
-#ifndef AALLOC_HPP_INCLUDED_P
-#define ALLLOC_HPP_INCLUDED_P
+#ifndef AIA_HPP_INCLUDED_P
+#define AIA_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
