@@ -56,7 +56,7 @@ void *Arena::allocate(std::size_t size, std::size_t align) {
         grow();
         ptr = std::align(align, size, current_position, free_space);
     }
-    current_position = static_cast<unsigned char>(current_position) + size;
+    current_position = static_cast<unsigned char *>(current_position) + size;
     free_space -= size;
 
     return ptr;
