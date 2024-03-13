@@ -165,7 +165,7 @@ class ArenaAllocator {
     }
 
     T *allocate(size_type n) {
-        return static_cast<T *>(arena.allocate(sizeof(T[n]), alignof(T)));
+        return static_cast<T *>(arena.allocate(sizeof(T) * n, alignof(T)));
     }
 
     void deallocate(pointer ptr, size_type size) {
