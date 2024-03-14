@@ -1,5 +1,5 @@
-#ifndef ASET_HPP_INCLUDED
-#define ASET_HPP_INCLUDED
+#ifndef AIA_UNORDERED_SET_HPP_INCLUDED_P
+#define AIA_UNORDERED_SET_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,15 +13,21 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <set>
+#include <unordered_set>
 #include "aia.hpp"
 
 namespace aia {
-    template <typename T>
-    using aset = std::set<T, aia::ArenaAllocator<T>>;
+    template <
+        typename Key,
+        typename Hash = std::hash<Key>,
+        typename KeyEqual = std::equal_to<Key>
+    > using unordered_set = std::unordered_set<Key, Hash, KeyEqual, aia::ArenaAllocator<Key>>;
     
-    template <typename T>
-    using amultiset = std::multiset<T, aia::ArenaAllocator<T>>;
+    template <
+        typename Key,
+        typename Hash = std::hash<Key>,
+        typename KeyEqual = std::equal_to<Key>
+    > using unordered_multiset = std::unordered_multiset<Key, Hash, KeyEqual, aia::ArenaAllocator<Key>>;
 } // namespace aia
 
 #endif

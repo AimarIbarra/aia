@@ -1,5 +1,5 @@
-#ifndef ALIST_HPP_INCLUDED
-#define ALIST_HPP_INCLUDED
+#ifndef AIA_QUEUE_HPP_INCLUDED_P
+#define AIA_QUEUE_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,12 +13,17 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <list>
+#include <queue>
 #include "aia.hpp"
+#include "deque.hpp"
+#include "vector.hpp"
 
 namespace aia {
     template <typename T>
-    using alist = std::list<T, aia::ArenaAllocator<T>>;
+    using queue = std::queue<T, aia::deque<T>>;
+
+    template <typename T, typename Compare = std::less<typename aia::vector<T>::value_type>>
+    using priority_queue = std::priority_queue<T, aia::vector<T>, Compare>;
 } // namespace aia
 
 #endif

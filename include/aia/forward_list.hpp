@@ -1,5 +1,5 @@
-#ifndef AVECTOR_HPP_INCLUDED
-#define AVECTOR_HPP_INCLUDED
+#ifndef AIA_FORWARD_LIST_HPP_INCLUDED_P
+#define AIA_FORWARD_LIST_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,12 +13,12 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <vector>
+#include <forward_list>
 #include "aia.hpp"
 
 namespace aia {
     template <typename T>
-    using avector = std::vector<T, aia::ArenaAllocator<T>>;
+    using forward_list = std::forward_list<T, aia::ArenaAllocator<T>>;
 } // namespace aia
 
 #endif

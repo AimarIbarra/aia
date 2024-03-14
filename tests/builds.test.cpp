@@ -1,4 +1,4 @@
-#include <aia.hpp>
+#include <aia/aia.hpp>
 
 using namespace aia;
 

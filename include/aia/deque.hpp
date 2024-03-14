@@ -1,5 +1,5 @@
-#ifndef AMAP_HPP_INCLUDED
-#define AMAP_HPP_INCLUDED
+#ifndef AIA_DEQUE_HPP_INCLUDED_P
+#define AIA_DEQUE_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,15 +13,12 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <map>
+#include <deque>
 #include "aia.hpp"
 
 namespace aia {
     template <typename T>
-    using amap = std::map<T, aia::ArenaAllocator<T>>;
-    
-    template <typename T>
-    using amultimap = std::multimap<T, aia::ArenaAllocator<T>>;
+    using deque = std::deque<T, aia::ArenaAllocator<T>>;
 } // namespace aia
 
 #endif

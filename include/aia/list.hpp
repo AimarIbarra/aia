@@ -1,5 +1,5 @@
-#ifndef AQUEUE_HPP_INCLUDED
-#define AQUEUE_HPP_INCLUDED
+#ifndef AIA_LIST_HPP_INCLUDED_P
+#define AIA_LIST_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,17 +13,12 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <queue>
+#include <list>
 #include "aia.hpp"
-#include "aqueue.hpp"
-#include "avector.hpp"
 
 namespace aia {
     template <typename T>
-    using aqueue = std::queue<T, aia::adeque<T>>;
-
-    template <typename T, typename Compare = std::less<typename aia::avector<T>::value_type>>
-    using apriority_queue = std::priority_queue<T, aia::avector<T>, Compare>;
+    using list = std::list<T, aia::ArenaAllocator<T>>;
 } // namespace aia
 
 #endif

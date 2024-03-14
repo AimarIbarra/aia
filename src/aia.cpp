@@ -10,7 +10,7 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <aia.hpp>
+#include <aia/aia.hpp>
 
 namespace aia {
 

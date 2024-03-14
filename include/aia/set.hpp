@@ -1,5 +1,5 @@
-#ifndef ADEQUE_HPP_INCLUDED
-#define ADEQUE_HPP_INCLUDED
+#ifndef AIA_SET_HPP_INCLUDED_P
+#define AIA_SET_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,12 +13,15 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <deque>
+#include <set>
 #include "aia.hpp"
 
 namespace aia {
-    template <typename T>
-    using adeque = std::deque<T, aia::ArenaAllocator<T>>;
+    template <typename T, typename Compare = std::less<T>>
+    using set = std::set<T, Compare, aia::ArenaAllocator<T>>;
+    
+    template <typename T, typename Compare = std::less<T>>
+    using multiset = std::multiset<T, Compare, aia::ArenaAllocator<T>>;
 } // namespace aia
 
 #endif

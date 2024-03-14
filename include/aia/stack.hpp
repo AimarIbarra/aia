@@ -1,5 +1,5 @@
-#ifndef AFORWARD_LIST_HPP_INCLUDED
-#define AFORWARD_LIST_HPP_INCLUDED
+#ifndef AIA_STACK_HPP_INCLUDED_P
+#define AIA_STACK_HPP_INCLUDED_P
 
 /* This program is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -13,12 +13,13 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
-#include <forward_list>
+#include <stack>
 #include "aia.hpp"
+#include "deque.hpp"
 
 namespace aia {
     template <typename T>
-    using aforward_list = std::forward_list<T, aia::ArenaAllocator<T>>;
+    using stack = std::stack<T, aia::deque<T>>;
 } // namespace aia
 
 #endif
