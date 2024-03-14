@@ -10,22 +10,42 @@ target_link_libraries(<YOUR_EXECUTABLE> aia)
 
 ## Usage
 ```c++
-int main() {
-  aia::Arena arena;
-  auto alloc = arena.make_allocator<int>();
+#include <aia/aia.hpp>
 
-  int *number = alloc.allocate(1);
-  int *array = alloc.allocate(10);
-  // `number` and `array` are freed here
+int main() {
+    aia::Arena arena;
+    aia::ArenaAllocator alloc = arena.make_allocator<int>();
+
+    int *number = alloc.allocate(1);
+    int *array = alloc.allocate(10);
+    // `number` and `array` are freed when the destructor of `arena` is called
+    //  unless the arena is moves elsewhere
 }
 ```
 
-Additionally you may use the allocator with any stl template:
+Additionally you may use the allocator with any stl contatiners:
 ```c++
-auto alloc = arena.make_allocator<int>();
-std::vector<int, aia::ArenaAllocator<int>> vec(alloc);
-std::forward_list<int, decltype(alloc)> list(alloc);
+#include <aia/aia.hpp>
+
+int main() {
+    aia::Arena arena;
+    auto alloc = arena.make_allocator<int>();
+    std::vector<int, aia::ArenaAllocator<int>> vec(alloc);
+    std::forward_list<int, decltype(alloc)> list(alloc);
+}
 ```
 
+Or you could use the aliases provided for all stl containers defined in C++11:
+```c++
+#include <aia/vector.hpp>
+
+int main() {
+    aia::Arena arena;
+    auto alloc = arena.make_allocator<int>();
+    aia::vector<int> vec(alloc);
+    vec.push_back(3);
+}
+```
+  
 ## Documentation
 The file `aia.hpp` is documented with doxygen.
