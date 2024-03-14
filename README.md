@@ -1,5 +1,6 @@
 # Aimar Ibarra's Arena (AIA)
 This is a simple implementation of a memory arena, alongside it's respective allocator.
+Written in C++ for C++.
 
 ## Install
 Use CMake:
@@ -46,6 +47,9 @@ int main() {
     vec.push_back(3);
 }
 ```
-  
+
 ## Documentation
-The file `aia.hpp` is documented with doxygen.
+The file `include/aia/aia.hpp` is documented with doxygen style comments.
+
+## License
+GPL3, see `LICENSE`.
